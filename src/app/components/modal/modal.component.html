@@ -1,0 +1,35 @@
+<!-- We show modal if modal variable value is set to true -->
+<clr-modal [(clrModalOpen)]="modal">
+	<h3 class="modal-title">Dashboard settings</h3>
+	<div class="modal-body">
+		<form>
+			<!-- 
+				Some form input
+				TODO: Transform in Angular form
+			-->
+			<section class="form-block">
+				<div class="form-group">
+					<label class="required">Min Grid Cols</label>
+					<input type="text" id="requiredInput">
+				</div>
+				<div class="form-group">
+					<label class="required">Max Grid Cols</label>
+					<input type="text" id="requiredInput">
+				</div>
+				<div class="form-group">
+					<label class="required">Min Grid Rows</label>
+					<input type="text" id="requiredInput">
+				</div>
+				<div class="form-group">
+					<label class="required">Max Grid Cols</label>
+					<input type="text" id="requiredInput">
+				</div>
+			</section>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<!-- Call toggle function that emit an event to Parent component -->
+		<button type="button" class="btn btn-outline" (click)="toggle()">Cancel</button>
+		<button type="button" class="btn btn-primary" (click)="toggle()">Apply</button>
+	</div>
+</clr-modal>

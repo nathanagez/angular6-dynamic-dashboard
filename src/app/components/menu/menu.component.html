@@ -1,0 +1,58 @@
+<header class="header-6">
+	<div class="header-nav">
+		<!-- toggleMenu() calle when clicked -->
+		<a class="nav-link nav-icon" (click)="toggleMenu()">
+			<clr-icon shape="bars" class="is-inverse"></clr-icon>
+		</a>
+	</div>
+	<div class="header-actions">
+		<clr-dropdown>
+			<button class="nav-icon" clrDropdownTrigger>
+				<clr-icon shape="cog"></clr-icon>
+				<clr-icon shape="caret down"></clr-icon>
+			</button>
+			<clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+				<!-- Display modal on click -->
+				<a (click)="modal = !modal" clrDropdownItem>Preferences</a>
+			</clr-dropdown-menu>
+		</clr-dropdown>
+	</div>
+</header>
+<div class="content-container">
+	<nav class="sidenav" *ngIf="toggle">
+		<section class="sidenav-content">
+			<section class="nav-group collapsible">
+				<input id="tabexample1" type="checkbox">
+				<label for="tabexample1">Bullshit component</label>
+				<ul class="nav-list">
+					<li *ngFor="let widget of widgetCollection">
+						<!-- 
+							Draggable widget from store using vanilla javascript event (dragstart)
+							onDrag() is call, it take $event and a widget identifier as parameters
+						-->
+						<a draggable="true" class="nav-link" (dragstart)="onDrag($event, widget.identifier)">
+							<clr-icon shape="drag-handle" style="margin-right: 10px;"></clr-icon>
+								{{ widget.name }}
+							<clr-icon shape="plugin" class="has-badge"></clr-icon>
+						</a>
+					</li>
+				</ul>
+			</section>
+		</section>
+	</nav>
+	<clr-tabs style="width: 100%;">
+		<!-- 
+			Tabs
+			TODO: Generate tabs using a service
+		-->
+		<clr-tab *ngFor="let dashboard of dashboardCollection">
+			<button clrTabLink routerLinkActive="active" routerLink="dashboard/{{dashboard.id}}">{{ dashboard.username }}</button>
+			<clr-tab-content>
+				<!-- In terms of the Router route we display the right component -->
+			</clr-tab-content>
+		</clr-tab>
+		<!-- Display model on top of everything -->
+		<app-modal [modal]="modal" (closeModal)="modal = !modal"></app-modal>
+		<router-outlet></router-outlet>
+	</clr-tabs>
+</div>

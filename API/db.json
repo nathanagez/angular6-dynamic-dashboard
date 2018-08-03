@@ -1,0 +1,34 @@
+{
+    "dashboards": [
+        {
+            "id": 1,
+            "username": "Nathan",
+            "dashboard": [
+                { "cols": 5, "rows": 5, "y": 0, "x": 0, "component": "line_chart", "name": "Line Chart" },
+                { "cols": 5, "rows": 5, "y": 0, "x": 0, "component": "doughnut_chart", "name": "Doghnut Chart" }
+            ]
+        },
+        {
+            "id": 2,
+            "username": "John",
+            "dashboard": [
+                { "cols": 5, "rows": 5, "y": 0, "x": 0, "component": "radar_chart", "name": "Radar Chart" },
+			    { "cols": 5, "rows": 5, "y": 0, "x": 0, "component": "doughnut_chart", "name": "Doghnut Chart" }
+            ]
+        }
+    ],
+    "widgets": [
+        {
+            "name": "Radar Chart",
+            "identifier": "radar_chart"
+        },
+        {
+            "name": "Doughnut Chart",
+            "identifier": "doughnut_chart"
+        },
+        {
+            "name": "Line Chart",
+            "identifier": "line_chart"
+        }
+    ]
+}
