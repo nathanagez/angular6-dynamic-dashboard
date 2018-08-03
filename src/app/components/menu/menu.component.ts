@@ -1,5 +1,5 @@
-import { DashboardService } from './../../services/dashboard.service';
-import { WidgetModel, DashboardModel } from "./../../../models/widget.model";
+import { DashboardService } from '../../services/dashboard.service';
+import { WidgetModel, DashboardModel } from "../../../models/dashboard.model";
 import { Component, OnInit } from "@angular/core";
 
 @Component({
