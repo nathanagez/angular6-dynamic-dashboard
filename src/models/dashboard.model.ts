@@ -3,7 +3,7 @@ export interface WidgetModel {
     identifier: string;
 }
 
-interface DashboardContentModel {
+export interface DashboardContentModel {
     cols: number;
     rows: number;
     y: number;

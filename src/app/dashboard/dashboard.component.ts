@@ -3,7 +3,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { GridsterConfig, GridsterItem, GridsterItemComponentInterface } from "angular-gridster2";
 import { DashboardService } from "../services/dashboard.service";
-import { DashboardModel } from "../../models/dashboard.model";
+import { DashboardModel, DashboardContentModel } from "../../models/dashboard.model";
 
 // COMPONENTS
 import { LineChartComponent } from "../components/line-chart/line-chart.component";
@@ -20,10 +20,11 @@ export class DashboardComponent implements OnInit {
 	protected options: GridsterConfig;
 	protected dashboardId: number;
 	protected dashboardCollection: DashboardModel;
+	protected dashboardArray: DashboardContentModel[];
 	protected componentCollection = [
-		{ name: "line_chart", componentInstance: LineChartComponent },
-		{ name: "doughnut_chart", componentInstance: DoughnutChartComponent },
-		{ name: "radar_chart", componentInstance: RadarChartComponent }
+		{ name: "Line Chart", componentInstance: LineChartComponent },
+		{ name: "Doughnut Chart", componentInstance: DoughnutChartComponent },
+		{ name: "Radar Chart", componentInstance: RadarChartComponent }
 	];
 
 	ngOnInit() {
@@ -48,7 +49,10 @@ export class DashboardComponent implements OnInit {
 			minCols: 10,
 			minRows: 10
 		};
-
+		this.getData();
+	}
+	
+	getData() {
 		// We get the id in get current router dashboard/:id
 		this._route.params.subscribe(params => {
 			// + is used to cast string to int
@@ -59,6 +63,9 @@ export class DashboardComponent implements OnInit {
 				this.dashboardCollection = dashboard;
 				// We parse serialized Json to generate components on the fly
 				this.parseJson(this.dashboardCollection);
+				// We copy array without reference
+				this.dashboardArray = this.dashboardCollection.dashboard.slice();
+
 			});
 		});
 	}
@@ -79,33 +86,34 @@ export class DashboardComponent implements OnInit {
 		});
 	}
 
-	serializeJson(dashboardCollection: DashboardModel) {
+	serialize(dashboardCollection) {
 		// We loop on our dashboardCollection
-		dashboardCollection.dashboard.forEach(dashboard => {
+		dashboardCollection.forEach(dashboard => {
 			// We loop on our componentCollection
 			this.componentCollection.forEach(component => {
 				// We check if component key in our dashboardCollection
 				// is equal to our component name key in our componentCollection
-				if (dashboard.component === component.componentInstance) {
-					// If it is, we replace our serialized key by our component instance
+				if (dashboard.name === component.name) {
 					dashboard.component = component.name;
 				}
 			});
 		});
 	}
-
-	itemChange(item: GridsterItem, itemComponent: GridsterItemComponentInterface) {
-		//this.serializeJson(this.dashboardCollection);
-		this._ds.updateDashboard(this.dashboardId, this.dashboardCollection);
-		console.log(this.dashboardCollection);
-		console.info('itemChanged', item);
+	
+	itemChange() {
+		this.dashboardCollection.dashboard = this.dashboardArray;
+		let tmp = JSON.stringify(this.dashboardCollection);
+		let parsed: DashboardModel = JSON.parse(tmp);
+		this.serialize(parsed.dashboard);
+		console.log(this.dashboardArray);
+		this._ds.updateDashboard(this.dashboardId, parsed).subscribe();
 	}
 
 	onDrop(ev) {
 		const componentType = ev.dataTransfer.getData("widgetIdentifier");
 		switch (componentType) {
 			case "radar_chart":
-				return this.dashboardCollection.dashboard.push({
+				return this.dashboardArray.push({
 					cols: 5,
 					rows: 5,
 					x: 0,
@@ -114,7 +122,7 @@ export class DashboardComponent implements OnInit {
 					name: "Radar Chart"
 				});
 			case "line_chart":
-				return this.dashboardCollection.dashboard.push({
+				return this.dashboardArray.push({
 					cols: 5,
 					rows: 5,
 					x: 0,
@@ -123,7 +131,7 @@ export class DashboardComponent implements OnInit {
 					name: "Line Chart"
 				});
 			case "doughnut_chart":
-				return this.dashboardCollection.dashboard.push({
+				return this.dashboardArray.push({
 					cols: 5,
 					rows: 5,
 					x: 0,
@@ -139,9 +147,10 @@ export class DashboardComponent implements OnInit {
 	}
 
 	removeItem(item) {
-		this.dashboardCollection.dashboard.splice(
-			this.dashboardCollection.dashboard.indexOf(item),
+		this.dashboardArray.splice(
+			this.dashboardArray.indexOf(item),
 			1
 		);
+		this.itemChange();
 	}
 }

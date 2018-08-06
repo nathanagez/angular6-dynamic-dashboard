@@ -1,6 +1,6 @@
 import { WidgetModel, DashboardModel } from '../../models/dashboard.model';
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -26,6 +26,11 @@ export class DashboardService {
 
 	// Update json
 	updateDashboard(id: number, params): Observable<DashboardModel> {
-		return this._http.put<DashboardModel>(`http://localhost:3000/dashboards/${id}`, { params });
+		const httpOptions = {
+			headers: new HttpHeaders({
+			  'Content-Type':  'application/json'
+			})
+		};
+		return this._http.put<DashboardModel>(`http://localhost:3000/dashboards/${id}`, params, httpOptions);
 	}
 }

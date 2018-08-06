@@ -1,7 +1,7 @@
 <!-- Gridster grid -->
 <gridster [options]="options" (drop)="onDrop($event)" style="background-color: transparent;">
 	<!-- Earch grister-item is generated with *ngFor -->
-	<gridster-item [item]="item" *ngFor="let item of dashboardCollection.dashboard">
+	<gridster-item [item]="item" *ngFor="let item of dashboardArray">
 		<!-- Delete button call removeItem() who takes as parameter item -->
 		<button class="btn btn-icon btn-danger" style="margin-left: 10px; margin-top: 10px;" (click)="removeItem(item)">
 			<clr-icon shape="trash"></clr-icon>

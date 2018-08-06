@@ -1,6 +1,7 @@
 # angular6-dynamic-dashboard 
 
 ![Angular Logo](https://avatars0.githubusercontent.com/u/139426?s=200&v=4) ![Clarity Logo](https://raw.githubusercontent.com/vmware/clarity/master/logo.png)
+
 Dynamic dashboard prototype using angular-gridster2 and ngx-dynamic-template
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
 

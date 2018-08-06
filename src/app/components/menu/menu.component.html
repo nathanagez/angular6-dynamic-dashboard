@@ -46,7 +46,7 @@
 			TODO: Generate tabs using a service
 		-->
 		<clr-tab *ngFor="let dashboard of dashboardCollection">
-			<button clrTabLink routerLinkActive="active" routerLink="dashboard/{{dashboard.id}}">{{ dashboard.username }}</button>
+			<button clrTabLink routerLink="dashboard/{{dashboard.id}}">{{ dashboard.username }}</button>
 			<clr-tab-content>
 				<!-- In terms of the Router route we display the right component -->
 			</clr-tab-content>
