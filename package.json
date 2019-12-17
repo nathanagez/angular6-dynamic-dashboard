@@ -31,7 +31,7 @@
     "ng-dynamic-component": "^3.0.0",
     "ng2-charts": "^1.6.0",
     "rxjs": "^6.0.0",
-    "yarn": "^1.9.2",
+    "yarn": "^1.17.3",
     "zone.js": "^0.8.26",
     "@clr/ui": "^0.12.7",
     "@clr/icons": "^0.12.7",
